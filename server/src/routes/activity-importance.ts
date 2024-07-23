@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getAllActivityImportances } from '../controllers/activityImportance';
+import { getAllActivityImportancesController } from '../controllers/activityImportance';
 
 const router = Router();
 
-router.get('/', getAllActivityImportances);
+router.get('/', getAllActivityImportancesController);
 
 export default router;

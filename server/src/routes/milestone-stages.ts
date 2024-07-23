@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getAllMilestoneStages } from '../controllers/milestoneStage';
+import { getAllMilestoneStagesController } from '../controllers/milestoneStage';
 
 const router = Router();
 
-router.get('/', getAllMilestoneStages);
+router.get('/', getAllMilestoneStagesController);
 
 export default router;
