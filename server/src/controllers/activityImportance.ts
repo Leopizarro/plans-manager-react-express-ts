@@ -1,16 +1,19 @@
 import { RequestHandler } from "express"
-import { AppDataSource } from "../data-source"
-import { ProjectActivityImportance } from "../entity/ProjectActivityImportance"
+import { getAllActivityImportances } from "../services/activityImportanceService"
 
 
-const activityImportaceRepo = AppDataSource.getRepository(ProjectActivityImportance)
-
-
-export const getAllActivityImportances: RequestHandler = async (req, res, next) => {
-    const activityImportances = await activityImportaceRepo.find();
-    res.status(200).json({
-        ok: true,
-        message: 'Importancia de actividades enviadas con éxito!',
-        activityImportances,
-    })
+export const getAllActivityImportancesController: RequestHandler = async (req, res, next) => {
+    try {
+        const activityImportances = await getAllActivityImportances();
+        res.status(200).json({
+            ok: true,
+            message: 'Importancia de actividades enviadas con éxito!',
+            activityImportances,
+        })
+    } catch(error) {
+        res.status(500).json({
+            ok: false,
+            message: 'Ha ocurrido un error obteniendo las importancias de actividades!'
+        })
+    }
 }

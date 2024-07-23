@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getAllProjectCategories } from '../controllers/projectCategories';
+import { getAllProjectCategoriesController } from '../controllers/projectCategories';
 
 const router = Router();
 
-router.get('/', getAllProjectCategories);
+router.get('/', getAllProjectCategoriesController);
 
 export default router;

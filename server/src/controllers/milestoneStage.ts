@@ -1,16 +1,19 @@
 import { RequestHandler } from "express"
-import { AppDataSource } from "../data-source"
-import { MilestoneStage } from "../entity/MilestoneStage"
+import { getAllMilestoneStages } from "../services/milestoneStageService"
 
 
-const milestoneStagesRepo = AppDataSource.getRepository(MilestoneStage)
-
-
-export const getAllMilestoneStages: RequestHandler = async (req, res, next) => {
-    const milestoneStages = await milestoneStagesRepo.find();
-    res.status(200).json({
-        ok: true,
-        message: 'Etapas de hito enviadas con éxito!',
-        milestoneStages,
-    })
+export const getAllMilestoneStagesController: RequestHandler = async (req, res, next) => {
+    try {
+        const milestoneStages = await getAllMilestoneStages();
+        res.status(200).json({
+            ok: true,
+            message: 'Etapas de hito enviadas con éxito!',
+            milestoneStages,
+        })
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            message: 'Ha ocurrido un error obteniendo las etapas de un hito'
+        })
+    }
 }
