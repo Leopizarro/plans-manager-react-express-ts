@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { ProjectRequest, createProject, deleteProject, getProjectById, getProjects, updateProject } from "../services/projectService";
+import { ProjectRequest, createProject, deleteProject, getProjectById, getProjects, updateProject } from "../services/project.service";
 
 
 export const createProjectController: RequestHandler = async (req, res, next) => {

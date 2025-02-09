@@ -1,8 +1,8 @@
 import { AppDataSource } from "../data-source";
 import { ProjectMilestone } from "../entity/ProjectMilestone";
-import { getActivityImportanceById } from "./activityImportanceService";
-import { getMilestoneStageById } from "./milestoneStageService";
-import { getProjectById } from "./projectService";
+import { getActivityImportanceById } from "./activityImportance.service";
+import { getMilestoneStageById } from "./milestoneStage.service";
+import { getProjectById } from "./project.service";
 
 export interface ProjectMilestoneRequest {
     title: string;

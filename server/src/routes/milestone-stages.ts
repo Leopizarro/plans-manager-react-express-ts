@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllMilestoneStagesController } from '../controllers/milestoneStage';
+import { getAllMilestoneStagesController } from '../controllers/milestoneStage.controller';
 
 const router = Router();
 
