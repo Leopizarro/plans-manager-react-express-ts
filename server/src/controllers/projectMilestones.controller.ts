@@ -4,7 +4,7 @@ import { AppDataSource } from "../data-source";
 import { Project } from "../entity/Project";
 import { ProjectActivityImportance } from "../entity/ProjectActivityImportance";
 import { MilestoneStage } from "../entity/MilestoneStage";
-import { ProjectMilestoneRequest, UpdateProjectMilestone, createMilestone, deleteMilestoneById, getProjectMilestonesById, updateMilestone } from "../services/projectMilestoneService";
+import { ProjectMilestoneRequest, UpdateProjectMilestone, createMilestone, deleteMilestoneById, getProjectMilestonesById, updateMilestone } from "../services/projectMilestone.service";
 
 const projectRepo = AppDataSource.getRepository(Project);
 const projectActImportanceRepo = AppDataSource.getRepository(ProjectActivityImportance);

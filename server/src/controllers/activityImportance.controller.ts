@@ -1,5 +1,5 @@
 import { RequestHandler } from "express"
-import { getAllActivityImportances } from "../services/activityImportanceService"
+import { getAllActivityImportances } from "../services/activityImportance.service"
 
 
 export const getAllActivityImportancesController: RequestHandler = async (req, res, next) => {

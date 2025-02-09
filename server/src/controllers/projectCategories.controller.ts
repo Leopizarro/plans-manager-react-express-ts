@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { getAllProjectCategories } from "../services/projectCategoryService";
+import { getAllProjectCategories } from "../services/projectCategory.service";
 
 export const getAllProjectCategoriesController: RequestHandler = async (req, res, next) => {
     try {

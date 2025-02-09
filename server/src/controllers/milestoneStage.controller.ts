@@ -1,5 +1,5 @@
 import { RequestHandler } from "express"
-import { getAllMilestoneStages } from "../services/milestoneStageService"
+import { getAllMilestoneStages } from "../services/milestoneStage.service"
 
 
 export const getAllMilestoneStagesController: RequestHandler = async (req, res, next) => {

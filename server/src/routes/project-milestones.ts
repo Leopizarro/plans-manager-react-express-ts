@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createProjectMilestone, deleteProjectMilestone, getProjectMilestones, updateProjectMilestone } from '../controllers/projectMilestones';
+import { createProjectMilestone, deleteProjectMilestone, getProjectMilestones, updateProjectMilestone } from '../controllers/projectMilestones.controller';
 
 const router = Router();
 
