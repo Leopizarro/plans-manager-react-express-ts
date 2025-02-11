@@ -1,6 +1,6 @@
 import type { SelectChangeEvent } from "@mui/material";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material"
-import { useGetProjectCategoriesQuery } from "../api/projectCategoryApiSlice";
+import { useGetProjectCategoriesQuery } from "../../features/api/projectCategoryApiSlice";
 import { useEffect, useState } from "react";
 
 

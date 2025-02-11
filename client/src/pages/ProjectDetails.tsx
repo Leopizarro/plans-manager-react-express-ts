@@ -1,15 +1,15 @@
 import {
     Typography
 } from "@mui/material";
-import { useDeleteProjectMutation, useGetOneProjectQuery, useUpdateProjectMutation } from "../api/projectsApiSlice";
+import { useDeleteProjectMutation, useGetOneProjectQuery, useUpdateProjectMutation } from "../features/api/projectsApiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import CreateProjectMilestone from "./CreateProjectMilestone";
-import EditProjectModal from "../common/EditProjectModal";
-import { useCreateProjectMilestoneMutation } from "../api/milestoneApiSlice";
-import ProjectsTable from "./ProjectsTable";
-import DeleteProjectModal from "../common/deleteProjectModal";
-import GeneralAlert from "../common/generalAlert";
+import CreateProjectMilestone from "../components/project-details/CreateProjectMilestone";
+import EditProjectModal from "../components/common/EditProjectModal";
+import { useCreateProjectMilestoneMutation } from "../features/api/milestoneApiSlice";
+import ProjectDetailsTable from "../components/project-details/ProjectDetailsTable";
+import DeleteProjectModal from "../components/common/DeleteProjectModal";
+import GeneralAlert from "../components/common/GeneralAlert";
 
 const ProjectDetails: React.FC = () => {
     const params = useParams();
@@ -87,11 +87,11 @@ const ProjectDetails: React.FC = () => {
     return (
         <>
         {isLoading && <Typography>Cargando información...</Typography>}
-        {isError && <Typography> Ha ocurrido un error !</Typography>}
+        {isError && <Typography align="center"> {error?.data?.message || 'ha ocurrido un error inesperado'}</Typography>}
         {isSuccess && (
             <>
             <Typography component='h1' fontSize="2.3rem" align='center'> Detalles Proyecto </Typography>
-            <ProjectsTable
+            <ProjectDetailsTable
             project={data?.project}
             handleOpenDeleteModal={handleOpenDeleteModal}
             handleOpenEditProjectModal={handleOpenEditProjectModal}

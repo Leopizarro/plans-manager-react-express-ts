@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { useCreateProjectMutation, useDeleteProjectMutation, useGetProjectsQuery } from "../api/projectsApiSlice"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Fab, IconButton, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { useCreateProjectMutation, useDeleteProjectMutation, useGetProjectsQuery } from "../features/api/projectsApiSlice"
+import { Fab } from "@mui/material"
 import { useLocation, useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
-import EditProjectModal from "../common/EditProjectModal";
-import DeleteProjectModal from "../common/deleteProjectModal";
-import GeneralAlert from "../common/generalAlert";
+import EditProjectModal from "../components/common/EditProjectModal";
+import DeleteProjectModal from "../components/common/DeleteProjectModal";
+import GeneralAlert from "../components/common/GeneralAlert";
+import ProjectsTable from "../components/projects/ProjectsTable";
 
 interface Project {
   id: number
@@ -35,26 +35,12 @@ interface Project {
   }[]
 }
 
-const menuButtons = [
-  {
-    placeholder: "Detalles",
-    code: "DET",
-  },
-  {
-    placeholder: "Eliminar",
-    code: "DEL",
-  }
-]
-
 export const Projects = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [openSuccessDeleteSnack, setOpenSuccessDeleteSnackbar] = useState<boolean>(false);
   const [openCreateSuccessSnackbar, setOpenCreateSuccessSnackbar] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [projectSelected, setProjectSelected] = useState<Project | null>(null);
   const [openEditProjectModal, setOpenEditProjectModal] = useState<boolean>(false);
-  const navigate = useNavigate();
   const location = useLocation();
   const { data, isError, isLoading, isSuccess, error } =
   useGetProjectsQuery()
@@ -66,7 +52,6 @@ export const Projects = () => {
   useEffect(() => {
     if (deleteSuccess) {
       setOpenDeleteModal(false);
-      handleClose();
       setOpenSuccessDeleteSnackbar(true);
       resetDeleteProject();
     }
@@ -76,7 +61,6 @@ export const Projects = () => {
       resetCreateProject();
 
     }
-
   }, [deleteSuccess, successCreating]);
 
   useEffect(() => {
@@ -86,44 +70,18 @@ export const Projects = () => {
     }
   },[])
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>, project: Project) => {
-    setProjectSelected(project);
-    setAnchorEl(event.currentTarget);
-    setOpenMenu(true);
-  }
-
   const handleOpenEditProjectModal = () => {
     setOpenEditProjectModal(!openEditProjectModal);
   }
 
   const handleCloseDeleteModal = () => {
-    setOpenMenu(false);
     setOpenDeleteModal(false);
   }
 
-  const handleClose = () => {
-    setOpenMenu(false);
-    setAnchorEl(null);
-  }
   const handleDeleteProject = async () => {
     if(projectSelected?.id) {
       await deleteProject(projectSelected.id);
     } 
-  }
-
-  const handleMenuClick = (id: number, code: string, projectTitle: string) => {
-    if (projectSelected) {
-    switch(code) {
-      case("DET"):
-      navigate(`project/${projectSelected.id}`)
-      break;
-      case("DEL"):
-      setOpenDeleteModal(true)
-      break;
-      default:
-        console.log('CODE NOT FOUND IN CASES')
-    }
-   }
   }
 
   const handleSnackBarClose = (event: React.SyntheticEvent | Event, reason?: string, snackBar?: string) => {
@@ -159,61 +117,7 @@ export const Projects = () => {
         )}
         {isSuccess && (
           <>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      ID
-                    </TableCell>
-                    <TableCell align="center">
-                      Título
-                    </TableCell>
-                    <TableCell align="center">
-                      Categoría(s)
-                    </TableCell>
-                    <TableCell align="center">
-                      % Avance
-                    </TableCell>
-                    <TableCell align="center">
-                      Acción
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody> 
-                {data.projects.map((project: Project) => (
-                  <TableRow>
-                  <TableCell>
-                    {project?.id}
-                  </TableCell>
-                  <TableCell align="center">
-                    {project?.projectTitle}
-                  </TableCell>
-                  <TableCell align="center">
-                    {project?.projectCategories.map((item, index) => (
-                      item.description + (index === project?.projectCategories?.length - 1 ? '.' : ', ')
-                    ))}
-                  </TableCell>
-                  <TableCell align="center">
-                    {project?.completionRate}
-                  </TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={(event) => handleClick(event, project)}>
-                      <MoreVertIcon />
-                    </IconButton>
-                    <Menu open={openMenu} anchorEl={anchorEl} onClose={handleClose}>
-                      {menuButtons.map(({placeholder, code}) => (
-                        <MenuItem onClick={() => handleMenuClick(project?.id, code, project?.projectTitle)}>
-                         {placeholder}
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </TableCell>
-                  </TableRow>
-                ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <ProjectsTable data={data} setProjectSelected={setProjectSelected} projectSelected={projectSelected} setOpenDeleteModal={setOpenDeleteModal}/>
             <Fab color="success" aria-label="add" sx={{ position: "absolute", bottom: "16px", right: "10px"}} onClick={handleOpenEditProjectModal}>
               <AddIcon />
             </Fab>
