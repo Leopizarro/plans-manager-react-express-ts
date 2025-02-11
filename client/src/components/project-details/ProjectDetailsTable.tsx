@@ -30,7 +30,7 @@ interface Project {
     }[]
   }
 
-const ProjectsTable: React.FC<any> = (props: {
+const ProjectDetailsTable: React.FC<any> = (props: {
     project: Project,
     handleOpenDeleteModal: MouseEventHandler<HTMLButtonElement>,
     handleOpenEditProjectModal: MouseEventHandler<HTMLButtonElement>,
@@ -164,4 +164,4 @@ const ProjectsTable: React.FC<any> = (props: {
     )
 }
 
-export default ProjectsTable;
+export default ProjectDetailsTable;

@@ -2,8 +2,8 @@ import type { SelectChangeEvent } from "@mui/material";
 import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useState } from "react";
-import { useGetActivityImportancesQuery } from "../api/activityImportanceApiSlice";
-import { useGetMilestoneStagesQuery } from "../api/milestoneStagesApiSlice";
+import { useGetActivityImportancesQuery } from "../../features/api/activityImportanceApiSlice";
+import { useGetMilestoneStagesQuery } from "../../features/api/milestoneStagesApiSlice";
 import { useParams } from "react-router-dom";
 
 const CreateProjectMilestone = (props: any) => {
@@ -11,8 +11,8 @@ const CreateProjectMilestone = (props: any) => {
     const params = useParams();
     const { data: actImportances, isLoading: actImpLoading, isSuccess: actImpSuccess, isError: actImpIsError, error: actImpError} = useGetActivityImportancesQuery();
     const { data: milestoneStages, isLoading: milestoneStagesLoading, isSuccess: milestoneStagesSuccess, isError: milestoneStagesIsError, error: milestoneStagesError} = useGetMilestoneStagesQuery();
-    const [importanceValue, setImportanceValue] = useState<string | undefined>('')
-    const [stageValue, setStageValue] = useState<string | undefined>('')
+    const [importanceValue, setImportanceValue] = useState<string>('')
+    const [stageValue, setStageValue] = useState<string>('')
     const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
     const handleCheckboxClick = () => {
