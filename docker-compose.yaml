@@ -1,0 +1,49 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: projects_app_pg_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - data_sql:/var/lib/postgresql/data # Persistent data storage
+    networks:
+      - app-projects-network
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/src
+      - /src/node_modules
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./server/.env
+    depends_on:
+      - db
+    networks:
+      - app-projects-network
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./client/.env
+    networks:
+      - app-projects-network
+networks:
+  app-projects-network:
+    driver: bridge
+volumes:
+  data_sql:
