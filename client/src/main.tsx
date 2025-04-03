@@ -6,9 +6,9 @@ import { store } from "./redux/store"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "./index.css"
 import { Projects } from "./pages/Projects"
-import ProjectDetails from './pages/ProjectDetails'
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import ProjectDetails from "./pages/ProjectDetails"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 
 const router = createBrowserRouter([
   {
@@ -17,17 +17,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: "project/:projectId",
-        element: <ProjectDetails />
+        element: <ProjectDetails />,
       },
       {
         path: "project/edit/:projectId",
-        element: <div> Testing route for editing!! </div>
+        element: <div> Testing route for editing!! </div>,
       },
       {
         path: "/",
-        element: <Projects />
-      }
-    ]
+        element: <Projects />,
+      },
+    ],
   },
 ])
 
@@ -39,9 +39,9 @@ if (container) {
   root.render(
     <React.StrictMode>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </LocalizationProvider>
     </React.StrictMode>,
   )
